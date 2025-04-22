@@ -1,0 +1,20 @@
+{
+  "name": "taskmanager",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^6.3.1"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.4",
+    "alpinejs": "^3.14.9",
+    "tailwindcss": "^4.1.4"
+  }
+}

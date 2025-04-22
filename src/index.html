@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite App</title>
+  </head>
+  <body class="flex h-screen">
+    <div class="m-auto" x-data="{ count: 0 }">
+      <div class="mt-4 text-center">
+        <span x-text="count" class="text-3xl"></span>
+        <div class="flex justify-between mt-4">
+          <button x-on:click="count--" class="text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-500 dark:focus:ring-red-800">Decrement</button>
+          <button x-on:click="count++" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-1 text-center me-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800">Increment</button>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="min-w-screen min-h-screen bg-gray-800 flex items-center justify-center px-5 py-5">
+      <div class="w-full mx-auto rounded-lg border border-gray-700 p-8 lg:py-12 lg:px-14 text-gray-300" style="max-width: 800px" x-data="app" x-init="addItem()">
+        <div class="mb-10">
+          <h1 class="text-2xl font-bold"><i class="mdi mdi-star text-yellow-300 text-3xl leading-none align-bottom"></i> Todos</h1>
+        </div>
+        <div class="mb-10">
+          <template x-if="todos.length">
+            <ul @click.away="defocusItems()" class="-mx-1">
+              <template x-for="(item,index) in todos">
+                <li @click="focusItem(index)" @dblclick="openItem(index)" class="px-2 py-2 rounded transition-all flex text-md" :class="{'bg-indigo-800':item.focused,'bg-gray-700 shadow-lg px-4 py-4 my-10 -mx-2':item.open,'mb-1 cursor-pointer':!item.open}" :key="index">
+                  <div class="flex-none w-10 leading-none">
+                    <input type="checkbox" :checked="item.checked" @click="item.checked=!item.checked">
+                  </div>
+                  <div class="flex-grow max-w-full">
+                    <div class="w-full leading-none">
+                      <h3 class="text-md leading-none truncate w-full pr-10" :class="item.title.length?'text-gray-300':'text-gray-500'" x-text="item.title||'New todo...'" x-show="!item.open"></h3>
+                      <input type="text" x-show="item.open" class="text-md w-full bg-transparent text-gray-300 leading-none focus:outline-none mb-2" x-model="item.title" :id="`titleField${index}`" placeholder="New todo..."/>
+                    </div>
+                    <div class="w-full" x-show="item.open">
+                      <textarea class="text-md w-full bg-transparent text-gray-300 leading-tight focus:outline-none" rows="10" x-model="item.notes" placeholder="Notes"></textarea>
+                    </div>
+                    <div class="w-full flex justify-end" x-show="item.open">
+                      <button class="p-1 -mr-1 focus:outline-none hover:text-red-300" @click="removeItem(index)"><i class="mdi mdi-trash-can-outline"></i></button>
+                    </div>
+                  </div>
+                </li>
+              </template>
+            </ul>
+          </template>
+          <template x-if="!todos.length">
+            <p class="text-gray-500">No todos</p>
+          </template>
+        </div>
+        <div class="flex justify-center">
+          <button class="py-1 px-10 border border-gray-800 hover:border-gray-700 rounded leading-none focus:outline-none text-xl" @click="addItem()"><i class="mdi mdi-plus"></i></button>
+        </div>
+      </div>
+    </div>
+
+
+    <script type="module" src="/assets/main.js"></script>
+  </body>
+</html>
